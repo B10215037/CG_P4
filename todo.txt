@@ -1,0 +1,2 @@
+* add camera control by keyboard and mouse
+* obj model render with shader

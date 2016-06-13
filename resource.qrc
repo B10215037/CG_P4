@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/Icons/down_arrow.ico</file>
+        <file>Resources/Icons/madd.png</file>
+        <file>Resources/Icons/mdelete.png</file>
+        <file>Resources/Icons/MenuLaylotTitle.png</file>
+        <file>Resources/Icons/mplay.png</file>
+        <file>Resources/Icons/openfile.ico</file>
+        <file>Resources/Icons/pause.ico</file>
+        <file>Resources/Icons/play.ico</file>
+        <file>Resources/Icons/savefile.ico</file>
+        <file>Resources/Icons/slider_handle.png</file>
+    </qresource>
+</RCC>
