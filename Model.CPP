@@ -1,9 +1,8 @@
 #include "Model.H"
 
-Light Model::light1;
-Light Model::light2;
 QOpenGLShaderProgram *Model::shader_program;
 QOpenGLShader *Model::vertex_shader, *Model::fragment_shader;
+QStack<Light*> Model::lights;
 
 Model::Model(const QString &file_path)
     : file_path(file_path), file_name(QFileInfo(file_path).fileName())
@@ -236,17 +235,31 @@ void Model::render()
     shader_program->setUniformValue("z_angle", rotation.z / 180 * (float)M_PI);
     shader_program->setUniformValue("scale_matrix", scale_matrix);
 
-    shader_program->setUniformValue("light1_position", light1.position);
-    shader_program->setUniformValue("light1_color", light1.color);
-    shader_program->setUniformValue("light1_power", light1.power);
-    shader_program->setUniformValue("light1_type", light1.type);
+    shader_program->setUniformValue("lights_size", lights.size());
+    if (lights.size() > 0) {
+        QStack<QVector4D>
+                lights_position,
+                lights_color,
+                lights_orientation;
+        QStack<GLfloat> lights_power, cutoffs;
+        QStack<GLint> lights_type;
 
-    shader_program->setUniformValue("light2_position", light2.position);
-    shader_program->setUniformValue("light2_color", light2.color);
-    shader_program->setUniformValue("light2_power", light2.power);
-    shader_program->setUniformValue("light2_type", light2.type);
-    shader_program->setUniformValue("light2_spot_direction", light2.spot_direction);
-    shader_program->setUniformValue("cutoff", cos(light2.spot_angle));
+        for (int i=0; i < lights.size(); ++i) {
+            lights_position.push(lights[i]->position);
+            lights_color.push(lights[i]->color);
+            lights_power.push(lights[i]->power);
+            lights_type.push(lights[i]->type);
+            lights_orientation.push(lights[i]->orientation);
+            cutoffs.push(cos(lights[i]->spot_angle / 180 * M_PI));
+        }
+
+        shader_program->setUniformValueArray("lights_position", lights_position.data(), lights.size());
+        shader_program->setUniformValueArray("lights_color", lights_color.data(), lights.size());
+        shader_program->setUniformValueArray("lights_power", lights_power.data(), lights.size(), 1);
+        shader_program->setUniformValueArray("lights_type", lights_type.data(), lights.size());
+        shader_program->setUniformValueArray("lights_orientation", lights_orientation.data(), lights.size());
+        shader_program->setUniformValueArray("cutoffs", cutoffs.constData(), lights.size(), 1);
+    }
 
     shader_program->setUniformValue("mtl_ambient", mtl_ambient);
     shader_program->setUniformValue("mtl_specular", mtl_specular);

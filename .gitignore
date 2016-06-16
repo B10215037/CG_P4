@@ -1,6 +1,6 @@
 Realease/
 Debug/
-Resources/
-TrackFiles/
+Resources/Models/
+Resources/Icons/
 *.autosave
 *.user

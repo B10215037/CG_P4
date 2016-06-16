@@ -6,18 +6,6 @@ OpenGLView::OpenGLView(QWidget *parent) :
     setFocusPolicy(Qt::StrongFocus);
     resetArcball();
 
-    Model::light1.position.setX(0);
-    Model::light1.position.setY(9000);
-    Model::light1.position.setZ(0);
-    Model::light1.position.setW(1);
-
-    Model::light2.position[0] = 0;
-    Model::light2.position[1] = 500;
-    Model::light2.position[2] = 0;
-    Model::light2.position[3] = 1;
-    Model::light2.power = 50;
-    Model::light2.type = LightType::spot;
-
     selectedCube[0] = -1;
     selectedCube[1] = -1;
 
@@ -169,7 +157,10 @@ void OpenGLView::initShader(QString vertex_shader_path, QString fragment_shader_
 void OpenGLView::paintGL()
 {
     // First pass
-    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+    if (useFBO)
+        glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+    else
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     /*************************************************************************
      * Set up basic opengl informaiton
@@ -183,27 +174,57 @@ void OpenGLView::paintGL()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_COLOR_MATERIAL);
 
-    // prepare for projection
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    setProjection();		// put the code to set up matrices here
+    if (normal_view) {
+        // prepare for projection
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        setProjection();		// put the code to set up matrices here
+    }
+    else {
+
+        for (int i=0; i < std::max(Model::lights.size(), 4); ++i) {
+            glMatrixMode(GL_PROJECTION);
+            gluPerspective(120, 1, 1, 500000);
+            glMatrixMode(GL_MODELVIEW);
+            glLoadIdentity();
+            gluLookAt(Model::lights[i]->position.x(),
+                      Model::lights[i]->position.y(),
+                      Model::lights[i]->position.z(),
+                      Model::lights[i]->position.x() + Model::lights[i]->orientation.x(),
+                      Model::lights[i]->position.y() + Model::lights[i]->orientation.y(),
+                      Model::lights[i]->position.z() + Model::lights[i]->orientation.z(),
+                      0, 1, 0);
+            update();
+
+            glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT);
+            glDisable(GL_DEPTH_TEST);
+            glBindTexture(GL_TEXTURE_2D, shadow_maps[i]);
+            glUniform1i(glGetUniformLocation(shaderProgram, "texture"), 0);
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
+    }
 
     glPushMatrix();
     drawStuff();
     glPopMatrix();
 
     // Second pass
-    glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glDisable(GL_DEPTH_TEST);
-    glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
-    glUniform1i(glGetUniformLocation(shaderProgram, "texture"), 0);
+    if (useFBO) {
+        glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        glDisable(GL_DEPTH_TEST);
+        glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+        glUniform1i(glGetUniformLocation(shaderProgram, "texture"), 0);
 
-    glUseProgram(shaderProgram);
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+        glUseProgram(shaderProgram);
+        glBindVertexArray(VAO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
 }
 
 void OpenGLView::setProjection()

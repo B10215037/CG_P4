@@ -1,0 +1,17 @@
+#version 400 core
+
+in vec2 uv;
+in vec4 DAS_color;
+
+uniform sampler2D texture;
+uniform bool use_texture;
+uniform vec4 kd;
+
+void main()
+{
+    if (use_texture)
+        gl_FragColor = DAS_color * texture2D(texture, uv);
+
+    else
+        gl_FragColor = DAS_color * kd;
+}

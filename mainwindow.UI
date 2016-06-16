@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>810</width>
-    <height>466</height>
+    <width>799</width>
+    <height>419</height>
    </rect>
   </property>
   <property name="font">
@@ -20,12 +20,6 @@
   </property>
   <property name="windowTitle">
    <string>AppMain</string>
-  </property>
-  <property name="layoutDirection">
-   <enum>Qt::LeftToRight</enum>
-  </property>
-  <property name="autoFillBackground">
-   <bool>true</bool>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -48,9 +42,9 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="7" column="1">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QHBoxLayout" name="train_speed_horizontalLayout">
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="train_speed_label">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -77,7 +71,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QSlider" name="sSpeed">
+       <widget class="QSlider" name="train_speed_slider">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -131,12 +125,12 @@
      </layout>
     </item>
     <item row="0" column="1" rowspan="7">
-     <layout class="QVBoxLayout" name="mainLayout"/>
+     <layout class="QVBoxLayout" name="opengl_mainLayout"/>
     </item>
     <item row="0" column="0" rowspan="8">
-     <layout class="QGridLayout" name="gridLayout_5">
+     <layout class="QGridLayout" name="left_gridLayout">
       <item row="0" column="1">
-       <widget class="QGroupBox" name="groupBox">
+       <widget class="QGroupBox" name="rotate_cp_x_groupBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -174,7 +168,7 @@ border-image: url(:/Resources/Icons/MenuLaylotTitle.png);</string>
         <property name="checkable">
          <bool>false</bool>
         </property>
-        <widget class="QPushButton" name="rcpxadd">
+        <widget class="QPushButton" name="rotate_cp_x_add_pushButton">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -210,7 +204,7 @@ QPushButton:pressed {
            <normaloff>:/Resources/Icons/madd.png</normaloff>:/Resources/Icons/madd.png</iconset>
          </property>
         </widget>
-        <widget class="QPushButton" name="rcpxsub">
+        <widget class="QPushButton" name="rotate_cp_x_sub_pushButton">
          <property name="geometry">
           <rect>
            <x>50</x>
@@ -249,7 +243,7 @@ QPushButton:pressed {
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QGroupBox" name="groupCP">
+       <widget class="QGroupBox" name="ctrl_point_groupBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -293,7 +287,7 @@ border-image: url(:/Resources/Icons/MenuLaylotTitle.png);</string>
         <property name="checkable">
          <bool>false</bool>
         </property>
-        <widget class="QPushButton" name="bAdd">
+        <widget class="QPushButton" name="add_cp_pushButton">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -337,7 +331,7 @@ QPushButton:pressed {
            <normaloff>:/Resources/Icons/madd.png</normaloff>:/Resources/Icons/madd.png</iconset>
          </property>
         </widget>
-        <widget class="QPushButton" name="bDelete">
+        <widget class="QPushButton" name="delete_cp_pushButton">
          <property name="geometry">
           <rect>
            <x>50</x>
@@ -386,8 +380,228 @@ QPushButton:pressed {
         </widget>
        </widget>
       </item>
-      <item row="1" column="0" rowspan="2" colspan="2">
-       <layout class="QGridLayout" name="gridLayout_3">
+      <item row="1" column="1">
+       <widget class="QGroupBox" name="rotate_cp_z_groupBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>80</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Comic Sans MS</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(249, 249, 249);
+border-radius: 5px;
+border-image: url(:/Resources/Icons/MenuLaylotTitle.png);</string>
+        </property>
+        <property name="title">
+         <string>Rotate CP Z</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <widget class="QPushButton" name="rotate_cp_z_add_pushButton">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>41</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color: rgb(80, 80, 80);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QPushButton:pressed {
+	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));
+     padding-top: 10px;
+     padding-left: 5px;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="resource.qrc">
+           <normaloff>:/Resources/Icons/madd.png</normaloff>:/Resources/Icons/madd.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="rotate_cp_z_sub_pushButton">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>30</y>
+           <width>41</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color: rgb(80, 80, 80);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QPushButton:pressed {
+	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));
+     padding-top: 10px;
+     padding-left: 5px;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="resource.qrc">
+           <normaloff>:/Resources/Icons/mdelete.png</normaloff>:/Resources/Icons/mdelete.png</iconset>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QGroupBox" name="train_start_groupBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>80</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Comic Sans MS</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(249, 249, 249);
+border-radius: 5px;
+border-image: url(:/Resources/Icons/MenuLaylotTitle.png);</string>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <widget class="QPushButton" name="train_start_pushButton">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>10</y>
+           <width>61</width>
+           <height>61</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Comic Sans MS</family>
+           <pointsize>9</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"> QPushButton {
+	background-color: rgb(80, 80, 80);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QPushButton:pressed {
+	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));
+     padding-top: 10px;
+     padding-left: 5px;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="resource.qrc">
+           <normaloff>:/Resources/Icons/mplay.png</normaloff>:/Resources/Icons/mplay.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <layout class="QGridLayout" name="buttons_gridLayout">
+        <item row="6" column="0">
+         <widget class="QPushButton" name="put_on_track_pushButton">
+          <property name="font">
+           <font>
+            <family>Comic Sans MS</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"> QPushButton {
+	background-color: rgb(80, 80, 80);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QPushButton:pressed {
+	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));
+     padding-top: 10px;
+     padding-left: 5px;
+}</string>
+          </property>
+          <property name="text">
+           <string>Put on track</string>
+          </property>
+         </widget>
+        </item>
         <item row="6" column="1">
          <widget class="QComboBox" name="track_number_comboBox">
           <property name="font">
@@ -461,51 +675,7 @@ QPushButton:pressed {
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
-         <widget class="QPushButton" name="put_on_track_pushButton">
-          <property name="font">
-           <font>
-            <family>Comic Sans MS</family>
-            <pointsize>12</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"> QPushButton {
-	background-color: rgb(80, 80, 80);
-	color: rgb(240, 240, 240);
-    border-radius: 10px;
-}
-
-QPushButton:pressed {
-	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));
-     padding-top: 10px;
-     padding-left: 5px;
-}</string>
-          </property>
-          <property name="text">
-           <string>Put on track</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="2" column="0" rowspan="2" colspan="2">
+        <item row="0" column="0">
          <widget class="QPushButton" name="delete_obj_pushButton">
           <property name="font">
            <font>
@@ -537,446 +707,14 @@ QPushButton:pressed {
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>100</width>
-            <height>80</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Comic Sans MS</family>
-            <pointsize>12</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(249, 249, 249);
-border-radius: 5px;
-border-image: url(:/Resources/Icons/MenuLaylotTitle.png);</string>
-          </property>
-          <property name="title">
-           <string>Rotate CP Z</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <widget class="QPushButton" name="rcpzadd">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>30</y>
-             <width>41</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton {
-	background-color: rgb(80, 80, 80);
-	color: rgb(240, 240, 240);
-    border-radius: 10px;
-}
-
-QPushButton:pressed {
-	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));
-     padding-top: 10px;
-     padding-left: 5px;
-}</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="resource.qrc">
-             <normaloff>:/Resources/Icons/madd.png</normaloff>:/Resources/Icons/madd.png</iconset>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="rcpzsub">
-           <property name="geometry">
-            <rect>
-             <x>50</x>
-             <y>30</y>
-             <width>41</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton {
-	background-color: rgb(80, 80, 80);
-	color: rgb(240, 240, 240);
-    border-radius: 10px;
-}
-
-QPushButton:pressed {
-	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));
-     padding-top: 10px;
-     padding-left: 5px;
-}</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="resource.qrc">
-             <normaloff>:/Resources/Icons/mdelete.png</normaloff>:/Resources/Icons/mdelete.png</iconset>
-           </property>
-          </widget>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QGroupBox" name="groupPlay">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>100</width>
-            <height>80</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Comic Sans MS</family>
-            <pointsize>12</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(249, 249, 249);
-border-radius: 5px;
-border-image: url(:/Resources/Icons/MenuLaylotTitle.png);</string>
-          </property>
-          <property name="title">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <widget class="QPushButton" name="bPlay">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>10</y>
-             <width>61</width>
-             <height>61</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="font">
-            <font>
-             <family>Comic Sans MS</family>
-             <pointsize>9</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"> QPushButton {
-	background-color: rgb(80, 80, 80);
-	color: rgb(240, 240, 240);
-    border-radius: 10px;
-}
-
-QPushButton:pressed {
-	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(172, 172, 172, 255), stop:1 rgba(0, 0, 0, 203));
-     padding-top: 10px;
-     padding-left: 5px;
-}</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="resource.qrc">
-             <normaloff>:/Resources/Icons/mplay.png</normaloff>:/Resources/Icons/mplay.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>40</width>
-             <height>40</height>
-            </size>
-           </property>
-          </widget>
-         </widget>
-        </item>
        </layout>
       </item>
      </layout>
     </item>
     <item row="0" column="3" rowspan="8">
-     <layout class="QGridLayout" name="gridLayout_6">
-      <item row="1" column="3">
-       <widget class="QGroupBox" name="groupBox_4">
-        <property name="maximumSize">
-         <size>
-          <width>150</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="title">
-         <string>Light Control</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="3" column="0" colspan="2">
-          <widget class="QLabel" name="light_x_label">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>X</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0" colspan="2">
-          <widget class="QLabel" name="light_y_label">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Y</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="2">
-          <widget class="QDoubleSpinBox" name="light_y_doubleSpinBox">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="decimals">
-            <number>2</number>
-           </property>
-           <property name="minimum">
-            <double>-9999.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>9999.000000000000000</double>
-           </property>
-           <property name="singleStep">
-            <double>10.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QComboBox" name="light_attribute_comboBox">
-           <property name="font">
-            <font>
-             <family>Comic Sans MS</family>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"> QComboBox {
-	background-color: rgb(206, 137, 0);
-	color: rgb(240, 240, 240);
-    border-radius: 10px;
-}
-
-QComboBox:on {
-	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.499001, fy:0.000500999, stop:0 rgba(152, 152, 152, 217), stop:1 rgba(0, 0, 0, 232));
-     padding-top: 3px;
-     padding-left: 4px;
-}
-
-QComboBox::down-arrow {
-	image: url(:/Resources/Icons/down_arrow.ico);
-}
-
-QComboBox::drop-down {
-     border-left-color: rgb(240, 240, 240);
-}
-
-QComboBox QAbstractItemView {
-     selection-background-color: rgb(80, 80, 80);
-}</string>
-           </property>
-           <item>
-            <property name="text">
-             <string>Position</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Color</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string/>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="5" column="2">
-          <widget class="QDoubleSpinBox" name="light_z_doubleSpinBox">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="decimals">
-            <number>2</number>
-           </property>
-           <property name="minimum">
-            <double>-9999.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>9999.000000000000000</double>
-           </property>
-           <property name="singleStep">
-            <double>10.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" colspan="2">
-          <widget class="QComboBox" name="light_comboBox">
-           <property name="font">
-            <font>
-             <family>Comic Sans MS</family>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"> QComboBox {
-	background-color: rgb(206, 137, 0);
-	color: rgb(240, 240, 240);
-    border-radius: 10px;
-}
-
-QComboBox:on {
-	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.499001, fy:0.000500999, stop:0 rgba(152, 152, 152, 217), stop:1 rgba(0, 0, 0, 232));
-     padding-top: 3px;
-     padding-left: 4px;
-}
-
-QComboBox::down-arrow {
-	image: url(:/Resources/Icons/down_arrow.ico);
-}
-
-QComboBox::drop-down {
-     border-left-color: rgb(240, 240, 240);
-}
-
-QComboBox QAbstractItemView {
-     selection-background-color: rgb(80, 80, 80);
-}</string>
-           </property>
-           <item>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="3" column="2">
-          <widget class="QDoubleSpinBox" name="light_x_doubleSpinBox">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="decimals">
-            <number>2</number>
-           </property>
-           <property name="minimum">
-            <double>-9999.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>9999.000000000000000</double>
-           </property>
-           <property name="singleStep">
-            <double>10.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0" colspan="2">
-          <widget class="QLabel" name="light_z_label">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Z</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QGroupBox" name="groupBox_3">
+     <layout class="QGridLayout" name="right_gridLayout">
+      <item row="0" column="3" rowspan="2">
+       <widget class="QGroupBox" name="obj_control_groupBox">
         <property name="maximumSize">
          <size>
           <width>150</width>
@@ -998,54 +736,8 @@ QComboBox QAbstractItemView {
          <set>Qt::AlignCenter</set>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
-         <item row="3" column="5">
-          <widget class="QDoubleSpinBox" name="x_doubleSpinBox">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="decimals">
-            <number>2</number>
-           </property>
-           <property name="minimum">
-            <double>-9999.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>9999.000000000000000</double>
-           </property>
-           <property name="singleStep">
-            <double>1.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="5">
-          <widget class="QDoubleSpinBox" name="z_doubleSpinBox">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="decimals">
-            <number>2</number>
-           </property>
-           <property name="minimum">
-            <double>-9999.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>9999.000000000000000</double>
-           </property>
-           <property name="singleStep">
-            <double>1.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="5">
-          <widget class="QCheckBox" name="do_z_checkBox">
+         <item row="13" column="0">
+          <widget class="QLabel" name="light_power_label">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -1054,112 +746,40 @@ QComboBox QAbstractItemView {
             </font>
            </property>
            <property name="text">
-            <string>Z</string>
+            <string>Power</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="5">
-          <widget class="QCheckBox" name="do_y_checkBox">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Y</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="2">
-          <widget class="QRadioButton" name="scale_radioButton">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>E</string>
-           </property>
-           <property name="checked">
+         <item row="0" column="0" rowspan="2" colspan="3">
+          <widget class="QRadioButton" name="translate_radioButton">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-          </widget>
-         </item>
-         <item row="2" column="5">
-          <widget class="QCheckBox" name="do_x_checkBox">
            <property name="font">
             <font>
+             <family>Comic Sans MS</family>
              <pointsize>10</pointsize>
              <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">QRadioButton {
+	background-color: rgb(180, 170, 20);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QRadioButton::disabled {
+	background-color: rgb(200, 200, 200);
+	color: rgb(120, 120, 120);
+    border-radius: 10px;
+}</string>
+           </property>
            <property name="text">
-            <string>X</string>
+            <string>Translate (T)</string>
            </property>
            <property name="shortcut">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="5">
-          <widget class="QDoubleSpinBox" name="y_doubleSpinBox">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="decimals">
-            <number>2</number>
-           </property>
-           <property name="minimum">
-            <double>-9999.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>9999.000000000000000</double>
-           </property>
-           <property name="singleStep">
-            <double>1.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="2">
-          <widget class="QRadioButton" name="rotate_radioButton">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>R</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="3" rowspan="6" colspan="2">
-          <widget class="Line" name="line">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QRadioButton" name="move_radioButton">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
             <string>T</string>
            </property>
            <property name="checked">
@@ -1167,11 +787,505 @@ QComboBox QAbstractItemView {
            </property>
           </widget>
          </item>
+         <item row="10" column="0" colspan="2">
+          <widget class="QRadioButton" name="light_color_radioButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>Comic Sans MS</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QRadioButton {
+	background-color: rgb(20, 80, 20);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QRadioButton::disabled {
+	background-color: rgb(200, 200, 200);
+	color: rgb(120, 120, 120);
+    border-radius: 10px;
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Color (C)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="0" colspan="3">
+          <widget class="QRadioButton" name="light_orientation_radioButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>Comic Sans MS</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QRadioButton {
+	background-color: rgb(20, 80, 20);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QRadioButton::disabled {
+	background-color: rgb(200, 200, 200);
+	color: rgb(120, 120, 120);
+    border-radius: 10px;
+}
+</string>
+           </property>
+           <property name="text">
+            <string>Orientation (O)</string>
+           </property>
+           <property name="shortcut">
+            <string>O</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" rowspan="2" colspan="3">
+          <widget class="QRadioButton" name="rotate_radioButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>Comic Sans MS</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QRadioButton {
+	background-color: rgb(180, 170, 20);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QRadioButton::disabled {
+	background-color: rgb(200, 200, 200);
+	color: rgb(120, 120, 120);
+    border-radius: 10px;
+}</string>
+           </property>
+           <property name="text">
+            <string>Rotate (R)</string>
+           </property>
+           <property name="shortcut">
+            <string>R</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0" colspan="3">
+          <widget class="Line" name="obj_light_divide_line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" rowspan="2" colspan="3">
+          <widget class="QRadioButton" name="extend_radioButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>Comic Sans MS</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QRadioButton {
+	background-color: rgb(180, 170, 20);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QRadioButton::disabled {
+	background-color: rgb(200, 200, 200);
+	color: rgb(120, 120, 120);
+    border-radius: 10px;
+}</string>
+           </property>
+           <property name="text">
+            <string>Extend (E)</string>
+           </property>
+           <property name="shortcut">
+            <string>E</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="1" colspan="2">
+          <widget class="QDoubleSpinBox" name="spot_light_angle_doubleSpinBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>Comic Sans MS</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QDoubleSpinBox {
+	background-color: rgb(20, 80, 20);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QDoubleSpinBox::disabled {
+	background-color: rgb(200, 200, 200);
+	color: rgb(120, 120, 120);
+    border-radius: 10px;
+}
+</string>
+           </property>
+           <property name="minimum">
+            <double>-9999.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>9999.989999999999782</double>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="1" colspan="2">
+          <widget class="QDoubleSpinBox" name="light_power_doubleSpinBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>Comic Sans MS</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QDoubleSpinBox {
+	background-color: rgb(20, 80, 20);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QDoubleSpinBox::disabled {
+	background-color: rgb(200, 200, 200);
+	color: rgb(120, 120, 120);
+    border-radius: 10px;
+}
+</string>
+           </property>
+           <property name="minimum">
+            <double>0.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>9999.989999999999782</double>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="0">
+          <widget class="QLabel" name="spot_light_angle_label">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>angle</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0" colspan="3">
+          <widget class="QComboBox" name="light_type_comboBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <family>Comic Sans MS</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QComboBox {
+	background-color: rgb(80, 80, 80);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QComboBox:on {
+	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.499001, fy:0.000500999, stop:0 rgba(152, 152, 152, 217), stop:1 rgba(0, 0, 0, 232));
+     padding-top: 3px;
+     padding-left: 4px;
+}
+
+QComboBox::down-arrow {
+	image: url(:/Resources/Icons/down_arrow.ico);
+}
+
+QComboBox::drop-down {
+     border-left-color: rgb(240, 240, 240);
+}
+
+QComboBox QAbstractItemView {
+     selection-background-color: rgb(80, 80, 80);
+}
+
+QComboBox::disabled {
+	background-color: rgb(200, 200, 200);
+	color: rgb(120, 120, 120);
+    border-radius: 10px;
+}</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>No light</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Point light</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Spot light</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Directional light</string>
+            </property>
+           </item>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
-      <item row="0" column="0" rowspan="2" colspan="3">
-       <widget class="QListWidget" name="listWidget">
+      <item row="2" column="3">
+       <layout class="QGridLayout" name="xyz_gridLayout">
+        <item row="1" column="1">
+         <widget class="QDoubleSpinBox" name="x_doubleSpinBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="font">
+           <font>
+            <family>Comic Sans MS</family>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QDoubleSpinBox {
+	background-color: rgb(20, 80, 20);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QDoubleSpinBox::disabled {
+	background-color: rgb(200, 200, 200);
+	color: rgb(120, 120, 120);
+    border-radius: 10px;
+}</string>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-9999.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>9999.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QDoubleSpinBox" name="z_doubleSpinBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="font">
+           <font>
+            <family>Comic Sans MS</family>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QDoubleSpinBox {
+	background-color: rgb(20, 80, 20);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QDoubleSpinBox::disabled {
+	background-color: rgb(200, 200, 200);
+	color: rgb(120, 120, 120);
+    border-radius: 10px;
+}</string>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-9999.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>9999.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QDoubleSpinBox" name="y_doubleSpinBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="font">
+           <font>
+            <family>Comic Sans MS</family>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QDoubleSpinBox {
+	background-color: rgb(20, 80, 20);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}
+
+QDoubleSpinBox::disabled {
+	background-color: rgb(200, 200, 200);
+	color: rgb(120, 120, 120);
+    border-radius: 10px;
+}</string>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-9999.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>9999.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="do_x_checkBox">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"> QCheckBox {
+	background-color: rgb(80, 80, 80);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}</string>
+          </property>
+          <property name="text">
+           <string>X</string>
+          </property>
+          <property name="shortcut">
+           <string/>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QCheckBox" name="do_y_checkBox">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"> QCheckBox {
+	background-color: rgb(80, 80, 80);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}</string>
+          </property>
+          <property name="text">
+           <string>Y</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QCheckBox" name="do_z_checkBox">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"> QCheckBox {
+	background-color: rgb(80, 80, 80);
+	color: rgb(240, 240, 240);
+    border-radius: 10px;
+}</string>
+          </property>
+          <property name="text">
+           <string>Z</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="2" rowspan="3">
+       <widget class="QListWidget" name="obj_listWidget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -1184,6 +1298,11 @@ QComboBox QAbstractItemView {
           <height>16777215</height>
          </size>
         </property>
+        <item>
+         <property name="text">
+          <string>Null</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
@@ -1195,69 +1314,71 @@ QComboBox QAbstractItemView {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>810</width>
+     <width>799</width>
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
+   <widget class="QMenu" name="menu_file">
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="aLoadPath"/>
-    <addaction name="aSavePath"/>
+    <addaction name="action_load_track_file"/>
+    <addaction name="action_save_track_file"/>
     <addaction name="separator"/>
-    <addaction name="actionLoad_Obj"/>
+    <addaction name="action_load_obj"/>
     <addaction name="separator"/>
-    <addaction name="actionLoad_Scence"/>
-    <addaction name="actionSave_Scene"/>
+    <addaction name="action_load_scence"/>
+    <addaction name="action_save_scene"/>
     <addaction name="separator"/>
-    <addaction name="aExit"/>
+    <addaction name="action_exit"/>
    </widget>
-   <widget class="QMenu" name="menuCamera">
+   <widget class="QMenu" name="menu_camera">
     <property name="title">
      <string>Camera</string>
     </property>
-    <addaction name="aWorld"/>
-    <addaction name="aTop"/>
-    <addaction name="aTrain"/>
+    <addaction name="action_world_view"/>
+    <addaction name="action_top_view"/>
+    <addaction name="action_train_view"/>
    </widget>
-   <widget class="QMenu" name="menuCurve">
+   <widget class="QMenu" name="menu_curve">
     <property name="title">
      <string>Curve</string>
     </property>
-    <addaction name="aLinear"/>
-    <addaction name="aCardinal"/>
-    <addaction name="aCubic"/>
+    <addaction name="action_linear_curve"/>
+    <addaction name="action_cardinal_curve"/>
+    <addaction name="action_cubic_curve"/>
    </widget>
-   <widget class="QMenu" name="menuTrack">
+   <widget class="QMenu" name="menu_track">
     <property name="title">
      <string>Track</string>
     </property>
-    <addaction name="aLine"/>
-    <addaction name="aTrack"/>
-    <addaction name="aRoad"/>
-    <addaction name="actionHide_all"/>
-    <addaction name="actionHide_control_points"/>
-    <addaction name="actionAdd_support_structure"/>
-    <addaction name="actionAdd_new_track"/>
-    <addaction name="actionRemove_last_track"/>
+    <addaction name="action_line_track"/>
+    <addaction name="action_normal_track"/>
+    <addaction name="action_road_track"/>
+    <addaction name="action_hide_whole_track"/>
+    <addaction name="action_hide_control_points"/>
+    <addaction name="action_add_support_structure"/>
+    <addaction name="action_add_new_track"/>
+    <addaction name="action_remove_last_track"/>
    </widget>
-   <widget class="QMenu" name="menuShader">
+   <widget class="QMenu" name="menu_shader">
     <property name="title">
      <string>Shader</string>
     </property>
-    <addaction name="actionShader_default"/>
-    <addaction name="actionShader_negative"/>
-    <addaction name="actionShader_blur"/>
-    <addaction name="actionShader_hallucination"/>
+    <addaction name="action_shader_default"/>
+    <addaction name="action_shader_negative"/>
+    <addaction name="action_shader_blur"/>
+    <addaction name="action_shader_hallucination"/>
     <addaction name="separator"/>
-    <addaction name="actionLoad_fragment_shader"/>
+    <addaction name="action_load_fragment_shader"/>
+    <addaction name="separator"/>
+    <addaction name="action_use_fbo"/>
    </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuCamera"/>
-   <addaction name="menuTrack"/>
-   <addaction name="menuCurve"/>
-   <addaction name="menuShader"/>
+   <addaction name="menu_file"/>
+   <addaction name="menu_camera"/>
+   <addaction name="menu_track"/>
+   <addaction name="menu_curve"/>
+   <addaction name="menu_shader"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="mainToolBar">
@@ -1267,15 +1388,15 @@ QComboBox QAbstractItemView {
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="aLoadPath"/>
-   <addaction name="aSavePath"/>
+   <addaction name="action_load_track_file"/>
+   <addaction name="action_save_track_file"/>
   </widget>
-  <action name="aExit">
+  <action name="action_exit">
    <property name="text">
     <string>Exit</string>
    </property>
   </action>
-  <action name="aLoadPath">
+  <action name="action_load_track_file">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/Resources/Icons/openfile.ico</normaloff>:/Resources/Icons/openfile.ico</iconset>
@@ -1290,7 +1411,7 @@ QComboBox QAbstractItemView {
     <bool>true</bool>
    </property>
   </action>
-  <action name="aSavePath">
+  <action name="action_save_track_file">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/Resources/Icons/savefile.ico</normaloff>:/Resources/Icons/savefile.ico</iconset>
@@ -1302,7 +1423,7 @@ QComboBox QAbstractItemView {
     <string>Ctrl+S, Ctrl+P</string>
    </property>
   </action>
-  <action name="aWorld">
+  <action name="action_world_view">
    <property name="checkable">
     <bool>false</bool>
    </property>
@@ -1313,17 +1434,17 @@ QComboBox QAbstractItemView {
     <string>World</string>
    </property>
   </action>
-  <action name="aTop">
+  <action name="action_top_view">
    <property name="text">
     <string>Top</string>
    </property>
   </action>
-  <action name="aTrain">
+  <action name="action_train_view">
    <property name="text">
     <string>Train</string>
    </property>
   </action>
-  <action name="aLinear">
+  <action name="action_linear_curve">
    <property name="checkable">
     <bool>false</bool>
    </property>
@@ -1334,17 +1455,17 @@ QComboBox QAbstractItemView {
     <string>Linear</string>
    </property>
   </action>
-  <action name="aCardinal">
+  <action name="action_cardinal_curve">
    <property name="text">
     <string>Cardinal</string>
    </property>
   </action>
-  <action name="aCubic">
+  <action name="action_cubic_curve">
    <property name="text">
     <string>Cubic</string>
    </property>
   </action>
-  <action name="aLine">
+  <action name="action_line_track">
    <property name="checkable">
     <bool>false</bool>
    </property>
@@ -1355,17 +1476,17 @@ QComboBox QAbstractItemView {
     <string>Line</string>
    </property>
   </action>
-  <action name="aTrack">
+  <action name="action_normal_track">
    <property name="text">
     <string>Track</string>
    </property>
   </action>
-  <action name="aRoad">
+  <action name="action_road_track">
    <property name="text">
     <string>Road</string>
    </property>
   </action>
-  <action name="actionLoad_Obj">
+  <action name="action_load_obj">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/Resources/Icons/openfile.ico</normaloff>:/Resources/Icons/openfile.ico</iconset>
@@ -1377,7 +1498,7 @@ QComboBox QAbstractItemView {
     <string>Ctrl+L, Ctrl+O</string>
    </property>
   </action>
-  <action name="actionSave_Scene">
+  <action name="action_save_scene">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/Resources/Icons/savefile.ico</normaloff>:/Resources/Icons/savefile.ico</iconset>
@@ -1389,7 +1510,7 @@ QComboBox QAbstractItemView {
     <string>Ctrl+S, Ctrl+S</string>
    </property>
   </action>
-  <action name="actionLoad_Scence">
+  <action name="action_load_scence">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/Resources/Icons/openfile.ico</normaloff>:/Resources/Icons/openfile.ico</iconset>
@@ -1401,57 +1522,62 @@ QComboBox QAbstractItemView {
     <string>Ctrl+L, Ctrl+S</string>
    </property>
   </action>
-  <action name="actionHide_control_points">
+  <action name="action_hide_control_points">
    <property name="text">
     <string>Hide control points</string>
    </property>
   </action>
-  <action name="actionHide_all">
+  <action name="action_hide_whole_track">
    <property name="text">
-    <string>Hide all</string>
+    <string>Hide whole track</string>
    </property>
   </action>
-  <action name="actionAdd_support_structure">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
+  <action name="action_add_support_structure">
    <property name="text">
     <string>Add support structure</string>
    </property>
   </action>
-  <action name="actionAdd_new_track">
+  <action name="action_add_new_track">
    <property name="text">
     <string>Add new track</string>
    </property>
   </action>
-  <action name="actionRemove_last_track">
+  <action name="action_remove_last_track">
    <property name="text">
     <string>Remove last track</string>
    </property>
   </action>
-  <action name="actionShader_default">
+  <action name="action_shader_default">
    <property name="text">
     <string>Default</string>
    </property>
   </action>
-  <action name="actionShader_blur">
+  <action name="action_shader_blur">
    <property name="text">
     <string>Blur</string>
    </property>
   </action>
-  <action name="actionShader_negative">
+  <action name="action_shader_negative">
    <property name="text">
     <string>Negative</string>
    </property>
   </action>
-  <action name="actionShader_hallucination">
+  <action name="action_shader_hallucination">
    <property name="text">
     <string>Hallucination</string>
    </property>
   </action>
-  <action name="actionLoad_fragment_shader">
+  <action name="action_load_fragment_shader">
    <property name="text">
     <string>Load fragment shader</string>
+   </property>
+  </action>
+  <action name="action_use_fbo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Use FBO</string>
    </property>
   </action>
  </widget>

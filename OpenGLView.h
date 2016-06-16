@@ -80,7 +80,9 @@ public:
     int track;
     bool
     isrun = false,
-    add_support_structure = false;
+    add_support_structure = false,
+    useFBO = false,
+    normal_view = false;
     float t_time = 0;
     const int STD_DIVIDE_LINE = 10000; // standard distance: 50
     float train_speed = 0;
@@ -113,6 +115,7 @@ public:
     GLuint VAO;
     GLuint framebuffer;
     GLuint textureColorbuffer;
+    GLuint shadow_maps[4];
 
     void initShader(QString vertex_shader_path, QString fragment_shader_path);
 };

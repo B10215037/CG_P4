@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     opengl_view = new OpenGLView();
 //    opengl_view->m_pTrack = m_Track;
     setGeometry(200, 30, 1000, 500);
-    ui->mainLayout->layout()->addWidget(opengl_view);
+    ui->opengl_mainLayout->layout()->addWidget(opengl_view);
     opengl_view->installEventFilter(this);
     canpan = false;
     isHover = false;
@@ -21,41 +21,37 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle( "Roller Coaster" );
 
     //signals & slots
-    connect( ui->aLoadPath      ,SIGNAL(triggered()),this,SLOT(LoadTrackPath()) );
-    connect( ui->aSavePath      ,SIGNAL(triggered()),this,SLOT(SaveTrackPath())	);
-    connect( ui->aExit          ,SIGNAL(triggered()),this,SLOT(ExitApp())       );
+    connect( ui->action_load_track_file,    SIGNAL(triggered()), this, SLOT(LoadTrackPath())    );
+    connect( ui->action_save_track_file,    SIGNAL(triggered()), this, SLOT(SaveTrackPath())    );
+    connect( ui->action_exit,               SIGNAL(triggered()), this, SLOT(ExitApp())          );
 
-    connect( ui->aWorld         ,SIGNAL(triggered()),this,SLOT(ChangeCamToWorld())  );
-    connect( ui->aTop           ,SIGNAL(triggered()),this,SLOT(ChangeCamToTop())    );
-    connect( ui->aTrain         ,SIGNAL(triggered()),this,SLOT(ChangeCamToTrain())  );
+    connect( ui->action_world_view, SIGNAL(triggered()), this, SLOT(ChangeCamToWorld())  );
+    connect( ui->action_top_view,   SIGNAL(triggered()), this, SLOT(ChangeCamToTop())    );
+    connect( ui->action_train_view, SIGNAL(triggered()), this, SLOT(ChangeCamToTrain())  );
 
-    connect( ui->aLinear		,SIGNAL(triggered()),this,SLOT(ChangeCurveToLinear())   );
-    connect( ui->aCardinal      ,SIGNAL(triggered()),this,SLOT(ChangeCurveToCardinal()) );
-    connect( ui->aCubic         ,SIGNAL(triggered()),this,SLOT(ChangeCurveToCubic())    );
+    connect( ui->action_linear_curve,   SIGNAL(triggered()), this, SLOT(ChangeCurveToLinear())      );
+    connect( ui->action_cardinal_curve, SIGNAL(triggered()), this, SLOT(ChangeCurveToCardinal())    );
+    connect( ui->action_cubic_curve,    SIGNAL(triggered()), this, SLOT(ChangeCurveToCubic())       );
 
-    connect( ui->aLine          ,SIGNAL(triggered()),this,SLOT(ChangeTrackToLine())     );
-    connect( ui->aTrack         ,SIGNAL(triggered()),this,SLOT(ChangeTrackToTrack())    );
-    connect( ui->aRoad          ,SIGNAL(triggered()),this,SLOT(ChangeTrackToRoad())		);
+    connect( ui->action_line_track, SIGNAL(triggered()), this, SLOT(ChangeTrackToLine())    );
+    connect( ui->action_normal_track, SIGNAL(triggered()), this, SLOT(ChangeTrackToTrack()) );
+    connect( ui->action_road_track, SIGNAL(triggered()), this, SLOT(ChangeTrackToRoad())    );
 
-    connect( ui->bPlay          ,SIGNAL(clicked()),this,SLOT(SwitchPlayAndPause())		);
-    connect( ui->bAdd           ,SIGNAL(clicked()),this,SLOT(AddControlPoint())			);
-    connect( ui->bDelete        ,SIGNAL(clicked()),this,SLOT(DeleteControlPoint())		);
+    connect( ui->train_start_pushButton, SIGNAL(clicked()), this, SLOT(SwitchPlayAndPause())    );
+    connect( ui->add_cp_pushButton, SIGNAL(clicked()), this, SLOT(AddControlPoint())            );
+    connect( ui->delete_cp_pushButton, SIGNAL(clicked()), this, SLOT(DeleteControlPoint())      );
 
-    connect( ui->rcpxadd		,SIGNAL(clicked()),this,SLOT(RotateControlPointAddX())  );
-    connect( ui->rcpxsub		,SIGNAL(clicked()),this,SLOT(RotateControlPointSubX())	);
-    connect( ui->rcpzadd		,SIGNAL(clicked()),this,SLOT(RotateControlPointAddZ())  );
-    connect( ui->rcpzsub		,SIGNAL(clicked()),this,SLOT(RotateControlPointSubZ())  );
+    connect( ui->rotate_cp_x_add_pushButton, SIGNAL(clicked()), this, SLOT(RotateControlPointAddX())    );
+    connect( ui->rotate_cp_x_sub_pushButton, SIGNAL(clicked()), this, SLOT(RotateControlPointSubX())    );
+    connect( ui->rotate_cp_z_add_pushButton, SIGNAL(clicked()), this, SLOT(RotateControlPointAddZ())    );
+    connect( ui->rotate_cp_z_sub_pushButton, SIGNAL(clicked()), this, SLOT(RotateControlPointSubZ())    );
 
-    ui->move_radioButton->setChecked(true);
-    ui->scale_radioButton->setChecked(false);
+    ui->translate_radioButton->setChecked(true);
+    ui->extend_radioButton->setChecked(false);
     ui->rotate_radioButton->setChecked(false);
     ui->do_x_checkBox->setChecked(true);
     ui->do_y_checkBox->setChecked(true);
     ui->do_z_checkBox->setChecked(true);
-
-    ui->light_x_doubleSpinBox->setValue(Model::light1.position.x());
-    ui->light_y_doubleSpinBox->setValue(Model::light1.position.y());
-    ui->light_z_doubleSpinBox->setValue(Model::light1.position.z());
 }
 
 void MainWindow::damageMe()
@@ -105,12 +101,12 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *e)
             // after pick obj, show some attribute to user
             if (opengl_view->selected_obj >= 0) {
                 Model *obj = opengl_view->objs[opengl_view->selected_obj];
-                if (ui->move_radioButton->isChecked()) {
+                if (ui->translate_radioButton->isChecked()) {
                     ui->x_doubleSpinBox->setValue(obj->pos.x);
                     ui->y_doubleSpinBox->setValue(obj->pos.y);
                     ui->z_doubleSpinBox->setValue(obj->pos.z);
                 }
-                else if (ui->scale_radioButton->isChecked()) {
+                else if (ui->extend_radioButton->isChecked()) {
                     ui->x_doubleSpinBox->setValue(obj->scale.x);
                     ui->y_doubleSpinBox->setValue(obj->scale.y);
                     ui->z_doubleSpinBox->setValue(obj->scale.z);
@@ -206,7 +202,7 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *e)
                 rx, ry, rz,
                 false);
 
-            if (ui->move_radioButton->isChecked()) {
+            if (ui->translate_radioButton->isChecked()) {
                 if (ui->do_x_checkBox->isChecked())
                     ui->x_doubleSpinBox->setValue(rx);
                 if (ui->do_y_checkBox->isChecked())
@@ -236,9 +232,9 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *e)
         else if (event->key() == Qt::Key_Z)
             ui->do_z_checkBox->setChecked(!ui->do_z_checkBox->isChecked());
         else if (event->key() == Qt::Key_T) // translate
-            ui->move_radioButton->setChecked(!ui->move_radioButton->isChecked());
+            ui->translate_radioButton->setChecked(!ui->translate_radioButton->isChecked());
         else if (event->key() == Qt::Key_E) // extend
-            ui->scale_radioButton->setChecked(!ui->scale_radioButton->isChecked());
+            ui->extend_radioButton->setChecked(!ui->extend_radioButton->isChecked());
         else if (event->key() == Qt::Key_R) // rotate
             ui->rotate_radioButton->setChecked(!ui->rotate_radioButton->isChecked());
         else if (event->key() == Qt::Key_W) // move camera forward
@@ -277,7 +273,7 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *e)
             }
             else if (opengl_view->selected_obj >= 0) {
                 Model *obj = opengl_view->objs[opengl_view->selected_obj];
-                if (ui->move_radioButton->isChecked()) {
+                if (ui->translate_radioButton->isChecked()) {
                     if (ui->do_x_checkBox->isChecked())
                         ui->x_doubleSpinBox->setValue(++obj->pos.x);
                     if (ui->do_y_checkBox->isChecked())
@@ -285,7 +281,7 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *e)
                     if (ui->do_z_checkBox->isChecked())
                         ui->z_doubleSpinBox->setValue(++obj->pos.z);
                 }
-                else if (ui->scale_radioButton->isChecked()) {
+                else if (ui->extend_radioButton->isChecked()) {
                     if (ui->do_x_checkBox->isChecked())
                         ui->x_doubleSpinBox->setValue(++obj->scale.x);
                     if (ui->do_y_checkBox->isChecked())
@@ -311,7 +307,7 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *e)
             }
             else if (opengl_view->selected_obj >= 0) {
                 Model *obj = opengl_view->objs[opengl_view->selected_obj];
-                if (ui->move_radioButton->isChecked()) {
+                if (ui->translate_radioButton->isChecked()) {
                     if (ui->do_x_checkBox->isChecked())
                         ui->x_doubleSpinBox->setValue(--obj->pos.x);
                     if (ui->do_y_checkBox->isChecked())
@@ -319,7 +315,7 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *e)
                     if (ui->do_z_checkBox->isChecked())
                         ui->z_doubleSpinBox->setValue(--obj->pos.z);
                 }
-                else if (ui->scale_radioButton->isChecked()) {
+                else if (ui->extend_radioButton->isChecked()) {
                     if (ui->do_x_checkBox->isChecked())
                         ui->x_doubleSpinBox->setValue(--obj->scale.x);
                     if (ui->do_y_checkBox->isChecked())
@@ -458,7 +454,7 @@ void MainWindow::ChangeTrackType( QString type )
     else if ( type == "Road" )
         ChangeTrackToRoad();
     else if ( type == "Hide all" )
-        on_actionHide_all_triggered();
+        on_action_hide_whole_track_triggered();
 }
 
 void MainWindow::ChangeTrackToLine()
@@ -485,7 +481,7 @@ void MainWindow::ChangeTrackToRoad()
                 hide_control_points = false;
 }
 
-void MainWindow::on_actionHide_all_triggered()
+void MainWindow::on_action_hide_whole_track_triggered()
 {
     opengl_view->track = 3;
     if (opengl_view->selectedCube[0] >= 0)
@@ -493,7 +489,7 @@ void MainWindow::on_actionHide_all_triggered()
                 hide_control_points = true;
 }
 
-void MainWindow::on_actionHide_control_points_triggered()
+void MainWindow::on_action_hide_control_points_triggered()
 {
     if (opengl_view->selectedCube[0] >= 0)
         opengl_view->m_pTrack[opengl_view->selectedCube[0]].
@@ -503,11 +499,11 @@ void MainWindow::on_actionHide_control_points_triggered()
 void MainWindow::SwitchPlayAndPause()
 {
     if ( !opengl_view->isrun ) {
-        ui->bPlay->setIcon(QIcon(":/Resources/Icons/play.ico"));
+        ui->train_start_pushButton->setIcon(QIcon(":/Resources/Icons/play.ico"));
         opengl_view->isrun = true;
     }
     else {
-        ui->bPlay->setIcon(QIcon(":/Resources/Icons/pause.ico"));
+        ui->train_start_pushButton->setIcon(QIcon(":/Resources/Icons/pause.ico"));
         opengl_view->isrun = false;
     }
 }
@@ -579,23 +575,23 @@ void MainWindow::RotateControlPointSubZ()
 
 void MainWindow::UpdateCameraState( int index )
 {
-    ui->aWorld->setChecked( (index==0)?true:false );
-    ui->aTop->setChecked( (index==1)?true:false );
-    ui->aTrain->setChecked( (index==2)?true:false );
+    ui->action_world_view->setChecked( index==0 );
+    ui->action_top_view->setChecked( index==1);
+    ui->action_train_view->setChecked( index==2 );
 }
 
 void MainWindow::UpdateCurveState( int index )
 {
-    ui->aLinear->setChecked( (index==0)?true:false );
-    ui->aCardinal->setChecked( (index==1)?true:false );
-    ui->aCubic->setChecked( (index==2)?true:false );
+    ui->action_linear_curve->setChecked( index==0 );
+    ui->action_cardinal_curve->setChecked( index==1 );
+    ui->action_cubic_curve->setChecked( index==2 );
 }
 
 void MainWindow::UpdateTrackState( int index )
 {
-    ui->aLine ->setChecked( (index==0)?true:false );
-    ui->aTrack->setChecked( (index==1)?true:false );
-    ui->aRoad ->setChecked( (index==2)?true:false );
+    ui->action_line_track ->setChecked( index==0 );
+    ui->action_normal_track->setChecked( index==1 );
+    ui->action_road_track ->setChecked( index==2 );
 }
 
 /*************************************************************************
@@ -638,7 +634,7 @@ void MainWindow::rollz(float dir)
     opengl_view->computeTrack();
 }
 
-void MainWindow::on_actionLoad_Obj_triggered()
+void MainWindow::on_action_load_obj_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(
         this,
@@ -646,48 +642,71 @@ void MainWindow::on_actionLoad_Obj_triggered()
         "./",
         tr("Obj (*.obj)" ));
     if ( !fileName.isEmpty() ) {
-        opengl_view->objs.push(new Model(fileName));
-        ui->listWidget->addItem(QFileInfo(fileName).fileName().remove(".obj"));
+        Model *obj = new Model(fileName);
+        obj->light.index = opengl_view->objs.size();
+        opengl_view->objs.push(obj);
+        ui->obj_listWidget->addItem(QFileInfo(fileName).fileName().remove(".obj"));
     }
 }
 
 void MainWindow::on_x_doubleSpinBox_valueChanged(double arg1)
 {
     if (opengl_view->selected_obj >= 0 && ui->do_x_checkBox->isChecked()) {
-        if (ui->move_radioButton->isChecked())
+        if (ui->translate_radioButton->isChecked()) {
             opengl_view->objs[opengl_view->selected_obj]->pos.x = arg1;
-        else if (ui->scale_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.position.setX(arg1);
+        }
+        else if (ui->extend_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->scale.x = arg1;
         else if (ui->rotate_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->rotation.x = arg1;
+
+        else if (ui->light_color_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.color.setX(arg1);
+        else if (ui->light_orientation_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.orientation.setX(arg1);
     }
 }
 
 void MainWindow::on_y_doubleSpinBox_valueChanged(double arg1)
 {
     if (opengl_view->selected_obj >= 0 && ui->do_y_checkBox->isChecked()) {
-        if (ui->move_radioButton->isChecked())
+        if (ui->translate_radioButton->isChecked()) {
             opengl_view->objs[opengl_view->selected_obj]->pos.y = arg1;
-        else if (ui->scale_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.position.setY(arg1);
+        }
+        else if (ui->extend_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->scale.y = arg1;
         else if (ui->rotate_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->rotation.y = arg1;
+
+        else if (ui->light_color_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.color.setY(arg1);
+        else if (ui->light_orientation_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.orientation.setY(arg1);
     }
 }
 
 void MainWindow::on_z_doubleSpinBox_valueChanged(double arg1)
 {
     if (opengl_view->selected_obj >= 0 && ui->do_z_checkBox->isChecked()) {
-        if (ui->move_radioButton->isChecked())
+        if (ui->translate_radioButton->isChecked()) {
             opengl_view->objs[opengl_view->selected_obj]->pos.z = arg1;
-        else if (ui->scale_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.position.setZ(arg1);
+        }
+        else if (ui->extend_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->scale.z = arg1;
         else if (ui->rotate_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->rotation.z = arg1;
+
+        else if (ui->light_color_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.color.setZ(arg1);
+        else if (ui->light_orientation_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.orientation.setZ(arg1);
     }
 }
 
-void MainWindow::on_move_radioButton_toggled(bool checked)
+void MainWindow::on_translate_radioButton_toggled(bool checked)
 {
     if (opengl_view->selected_obj >= 0 && checked) {
         Model *obj = opengl_view->objs[opengl_view->selected_obj];
@@ -697,7 +716,7 @@ void MainWindow::on_move_radioButton_toggled(bool checked)
     }
 }
 
-void MainWindow::on_scale_radioButton_toggled(bool checked)
+void MainWindow::on_extend_radioButton_toggled(bool checked)
 {
     if (opengl_view->selected_obj >= 0 && checked) {
         Model *obj = opengl_view->objs[opengl_view->selected_obj];
@@ -720,58 +739,86 @@ void MainWindow::on_rotate_radioButton_toggled(bool checked)
 void MainWindow::on_do_x_checkBox_toggled(bool checked)
 {
     if (opengl_view->selected_obj >= 0 && checked) {
-        if (ui->move_radioButton->isChecked())
+        if (ui->translate_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->pos.x =
                     ui->x_doubleSpinBox->value();
-        else if (ui->scale_radioButton->isChecked())
+        else if (ui->extend_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->scale.x =
                     ui->x_doubleSpinBox->value();
         else if (ui->rotate_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->rotation.x =
                     ui->x_doubleSpinBox->value();
+
+        else if (ui->light_color_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.color.setX(
+                        ui->x_doubleSpinBox->value());
+        else if (ui->light_orientation_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.orientation.setX(
+                        ui->x_doubleSpinBox->value());
     }
 }
 
 void MainWindow::on_do_y_checkBox_toggled(bool checked)
 {
     if (opengl_view->selected_obj >= 0 && checked) {
-        if (ui->move_radioButton->isChecked())
+        if (ui->translate_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->pos.y =
                     ui->y_doubleSpinBox->value();
-        else if (ui->scale_radioButton->isChecked())
+        else if (ui->extend_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->scale.y =
                     ui->y_doubleSpinBox->value();
         else if (ui->rotate_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->rotation.y =
                     ui->y_doubleSpinBox->value();
+
+        else if (ui->light_color_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.color.setY(
+                        ui->x_doubleSpinBox->value());
+        else if (ui->light_orientation_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.orientation.setY(
+                        ui->x_doubleSpinBox->value());
     }
 }
 
 void MainWindow::on_do_z_checkBox_toggled(bool checked)
 {
     if (opengl_view->selected_obj >= 0 && checked) {
-        if (ui->move_radioButton->isChecked())
+        if (ui->translate_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->pos.z =
                     ui->z_doubleSpinBox->value();
-        else if (ui->scale_radioButton->isChecked())
+        else if (ui->extend_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->scale.z =
                     ui->z_doubleSpinBox->value();
         else if (ui->rotate_radioButton->isChecked())
             opengl_view->objs[opengl_view->selected_obj]->rotation.z =
                     ui->z_doubleSpinBox->value();
+
+        else if (ui->light_color_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.color.setZ(
+                        ui->x_doubleSpinBox->value());
+        else if (ui->light_orientation_radioButton->isChecked())
+            opengl_view->objs[opengl_view->selected_obj]->light.orientation.setZ(
+                        ui->x_doubleSpinBox->value());
     }
 }
 
 void MainWindow::on_delete_obj_pushButton_clicked()
 {
     if (opengl_view->selected_obj >= 0) {
+        for (int i=0; i < Model::lights.size(); ++i)
+            if (Model::lights[i]->index == opengl_view->selected_obj) {
+                Model::lights.removeAt(i);
+                for (int j=i; j < Model::lights.size(); ++j)
+                    Model::lights[j]->index = j;
+                break;
+            }
         delete opengl_view->objs[opengl_view->selected_obj];
         opengl_view->objs.removeAt(opengl_view->selected_obj);
         on_take_away_pushButton_clicked();
         opengl_view->selected_obj = -1;
 
-        QModelIndexList index = ui->listWidget->selectionModel()->selectedRows();
-        ui->listWidget->model()->removeRow(index[0].row());
+        QModelIndexList index = ui->obj_listWidget->selectionModel()->selectedRows();
+        ui->obj_listWidget->model()->removeRow(index[0].row());
     }
 }
 
@@ -794,12 +841,12 @@ void MainWindow::on_put_on_track_pushButton_clicked()
     }
 }
 
-void MainWindow::on_sSpeed_valueChanged(int value)
+void MainWindow::on_train_speed_slider_valueChanged(int value)
 {
     opengl_view->train_speed = value;
 }
 
-void MainWindow::on_actionSave_Scene_triggered()
+void MainWindow::on_action_save_scene_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(
         this,
@@ -810,7 +857,7 @@ void MainWindow::on_actionSave_Scene_triggered()
 //        opengl_view->objs.push(Model(fileName));
 }
 
-void MainWindow::on_actionLoad_Scence_triggered()
+void MainWindow::on_action_load_scence_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(
         this,
@@ -821,187 +868,75 @@ void MainWindow::on_actionLoad_Scence_triggered()
 //        opengl_view->objs.push(Model(fileName));
 }
 
-void MainWindow::on_light_comboBox_currentIndexChanged(int index)
-{
-    if (index == 0) { // light 1
-        if (ui->light_attribute_comboBox->currentIndex() == 0) { // position
-            ui->light_x_doubleSpinBox->setValue(Model::light1.position[0]);
-            ui->light_y_doubleSpinBox->setValue(Model::light1.position[1]);
-            ui->light_z_doubleSpinBox->setValue(Model::light1.position[2]);
-        }
-        else { // color
-            ui->light_x_doubleSpinBox->setValue(Model::light1.color[0]);
-            ui->light_y_doubleSpinBox->setValue(Model::light1.color[1]);
-            ui->light_z_doubleSpinBox->setValue(Model::light1.color[2]);
-        }
-    }
-    else { // light 2
-        if (ui->light_attribute_comboBox->currentIndex() == 0) { // position
-            ui->light_x_doubleSpinBox->setValue(Model::light2.position[0]);
-            ui->light_y_doubleSpinBox->setValue(Model::light2.position[1]);
-            ui->light_z_doubleSpinBox->setValue(Model::light2.position[2]);
-        }
-        else { // color
-            ui->light_x_doubleSpinBox->setValue(Model::light2.color[0]);
-            ui->light_y_doubleSpinBox->setValue(Model::light2.color[1]);
-            ui->light_z_doubleSpinBox->setValue(Model::light2.color[2]);
-        }
-    }
-}
-
-void MainWindow::on_light_attribute_comboBox_currentIndexChanged(int index)
-{
-    if (index == 0) { // position
-        ui->light_x_label->setText("X");
-        ui->light_y_label->setText("Y");
-        ui->light_z_label->setText("Z");
-
-        ui->light_x_doubleSpinBox->setMaximum(9999);
-        ui->light_y_doubleSpinBox->setMaximum(9999);
-        ui->light_z_doubleSpinBox->setMaximum(9999);
-
-        ui->light_x_doubleSpinBox->setMinimum(-9999);
-        ui->light_y_doubleSpinBox->setMinimum(-9999);
-        ui->light_z_doubleSpinBox->setMinimum(-9999);
-
-        ui->light_x_doubleSpinBox->setSingleStep(10);
-        ui->light_y_doubleSpinBox->setSingleStep(10);
-        ui->light_z_doubleSpinBox->setSingleStep(10);
-
-        if (ui->light_comboBox->currentIndex() == 0) { // light 1
-            ui->light_x_doubleSpinBox->setValue(Model::light1.position[0]);
-            ui->light_y_doubleSpinBox->setValue(Model::light1.position[1]);
-            ui->light_z_doubleSpinBox->setValue(Model::light1.position[2]);
-        }
-        else { // light 2
-            ui->light_x_doubleSpinBox->setValue(Model::light2.position[0]);
-            ui->light_y_doubleSpinBox->setValue(Model::light2.position[1]);
-            ui->light_z_doubleSpinBox->setValue(Model::light2.position[2]);
-        }
-    }
-    else { // color
-        if (ui->light_comboBox->currentIndex() == 0) { // light 1
-            ui->light_x_doubleSpinBox->setValue(Model::light1.color[0]);
-            ui->light_y_doubleSpinBox->setValue(Model::light1.color[1]);
-            ui->light_z_doubleSpinBox->setValue(Model::light1.color[2]);
-        }
-        else { // light 2
-            ui->light_x_doubleSpinBox->setValue(Model::light2.color[0]);
-            ui->light_y_doubleSpinBox->setValue(Model::light2.color[1]);
-            ui->light_z_doubleSpinBox->setValue(Model::light2.color[2]);
-        }
-
-        ui->light_x_label->setText("R");
-        ui->light_y_label->setText("G");
-        ui->light_z_label->setText("B");
-
-        ui->light_x_doubleSpinBox->setMaximum(1);
-        ui->light_y_doubleSpinBox->setMaximum(1);
-        ui->light_z_doubleSpinBox->setMaximum(1);
-
-        ui->light_x_doubleSpinBox->setMinimum(0);
-        ui->light_y_doubleSpinBox->setMinimum(0);
-        ui->light_z_doubleSpinBox->setMinimum(0);
-
-        ui->light_x_doubleSpinBox->setSingleStep(.1);
-        ui->light_y_doubleSpinBox->setSingleStep(.1);
-        ui->light_z_doubleSpinBox->setSingleStep(.1);
-    }
-}
-
-void MainWindow::on_light_x_doubleSpinBox_valueChanged(double arg1)
-{
-    if (ui->light_comboBox->currentIndex() == 0) { // light 1
-        if (ui->light_attribute_comboBox->currentIndex() == 0) // position
-            Model::light1.position.setX(arg1);
-        else // color
-            Model::light1.color.setX(arg1);
-    }
-    else { //light 2
-        if (ui->light_attribute_comboBox->currentIndex() == 0) // position
-            Model::light2.position.setX(arg1);
-        else // color
-            Model::light2.color.setX(arg1);
-    }
-}
-
-void MainWindow::on_light_y_doubleSpinBox_valueChanged(double arg1)
-{
-    if (ui->light_comboBox->currentIndex() == 0) { // light 1
-        if (ui->light_attribute_comboBox->currentIndex() == 0) // position
-            Model::light1.position.setY(arg1);
-        else // color
-            Model::light1.color.setY(arg1);
-    }
-    else { //light 2
-        if (ui->light_attribute_comboBox->currentIndex() == 0) // position
-            Model::light2.position.setY(arg1);
-        else // color
-            Model::light2.color.setY(arg1);
-    }
-}
-
-void MainWindow::on_light_z_doubleSpinBox_valueChanged(double arg1)
-{
-    if (ui->light_comboBox->currentIndex() == 0) { // light 1
-        if (ui->light_attribute_comboBox->currentIndex() == 0) // position
-            Model::light1.position.setZ(arg1);
-        else // color
-            Model::light1.color.setZ(arg1);
-    }
-    else { //light 2
-        if (ui->light_attribute_comboBox->currentIndex() == 0) // position
-            Model::light2.position.setZ(arg1);
-        else // color
-            Model::light2.color.setZ(arg1);
-    }
-}
-
-void MainWindow::on_actionAdd_support_structure_triggered()
+void MainWindow::on_action_add_support_structure_triggered()
 {
     opengl_view->add_support_structure = !opengl_view->add_support_structure;
 }
 
-void MainWindow::on_actionAdd_new_track_triggered()
+void MainWindow::on_action_add_new_track_triggered()
 {
     opengl_view->m_pTrack.push(CTrack());
 }
 
-void MainWindow::on_actionRemove_last_track_triggered()
+void MainWindow::on_action_remove_last_track_triggered()
 {
     opengl_view->m_pTrack.pop();
 }
 
-void MainWindow::on_listWidget_itemPressed(QListWidgetItem *item)
+void MainWindow::on_obj_listWidget_itemPressed(QListWidgetItem *item)
 {
-    opengl_view->selected_obj = ui->listWidget->row(item);
+    int index = ui->obj_listWidget->row(item);
+    opengl_view->selected_obj = index - 1;
+
+    ui->translate_radioButton->setEnabled(index);
+    ui->extend_radioButton->setEnabled(index);
+    ui->rotate_radioButton->setEnabled(index);
+
+    ui->light_type_comboBox->setEnabled(index);
+    ui->light_color_radioButton->setEnabled(index);
+    ui->light_orientation_radioButton->setEnabled(index);
+    ui->spot_light_angle_doubleSpinBox->setEnabled(index);
+    ui->light_power_doubleSpinBox->setEnabled(index);
+
+    ui->x_doubleSpinBox->setEnabled(index);
+    ui->y_doubleSpinBox->setEnabled(index);
+    ui->z_doubleSpinBox->setEnabled(index);
+
+    if (index) {
+        on_translate_radioButton_toggled(ui->translate_radioButton->isChecked());
+        on_extend_radioButton_toggled(ui->extend_radioButton->isChecked());
+        on_rotate_radioButton_toggled(ui->rotate_radioButton->isChecked());
+
+        ui->light_type_comboBox->setCurrentIndex(opengl_view->objs[index - 1]->light.type);
+        on_light_type_comboBox_currentIndexChanged(opengl_view->objs[index - 1]->light.type);
+    }
 }
 
-void MainWindow::on_actionShader_default_triggered()
+void MainWindow::on_action_shader_default_triggered()
 {
     opengl_view->initShader("../Resources/Shaders/frame/vetex_framebuffer",
                             "../Resources/Shaders/frame/fragment_framebuffer");
 }
 
-void MainWindow::on_actionShader_negative_triggered()
+void MainWindow::on_action_shader_negative_triggered()
 {
     opengl_view->initShader("../Resources/Shaders/frame/vetex_framebuffer",
                             "../Resources/Shaders/frame/fragment_negative");
 }
 
-void MainWindow::on_actionShader_blur_triggered()
+void MainWindow::on_action_shader_blur_triggered()
 {
     opengl_view->initShader("../Resources/Shaders/frame/vetex_framebuffer",
                             "../Resources/Shaders/frame/fragment_blur_kernel");
 }
 
-void MainWindow::on_actionShader_hallucination_triggered()
+void MainWindow::on_action_shader_hallucination_triggered()
 {
     opengl_view->initShader("../Resources/Shaders/frame/vetex_framebuffer",
                             "../Resources/Shaders/frame/fragment_hallucination_kernel");
 }
 
-void MainWindow::on_actionLoad_fragment_shader_triggered()
+void MainWindow::on_action_load_fragment_shader_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(
         this,
@@ -1011,4 +946,77 @@ void MainWindow::on_actionLoad_fragment_shader_triggered()
     if ( !fileName.isEmpty() )
         opengl_view->initShader("../Resources/Shaders/frame/vetex_framebuffer",
                                 fileName);
+}
+
+void MainWindow::on_light_type_comboBox_currentIndexChanged(int index)
+{
+    if (opengl_view->selected_obj >= 0) {
+        opengl_view->objs[opengl_view->selected_obj]->light.type = static_cast<LightType>(index);
+
+        if (index == 0) {
+            ui->light_color_radioButton->setEnabled(false);
+            ui->light_orientation_radioButton->setEnabled(false);
+            ui->spot_light_angle_doubleSpinBox->setEnabled(false);
+            ui->light_power_doubleSpinBox->setEnabled(false);
+
+            for (int i=0; i < Model::lights.size(); ++i)
+                if (Model::lights[i]->index == opengl_view->selected_obj) {
+                    Model::lights.removeAt(i);
+                    return;
+                }
+        }
+        else {
+            ui->light_color_radioButton->setEnabled(true);
+            ui->light_orientation_radioButton->setEnabled(true);
+            ui->spot_light_angle_doubleSpinBox->setEnabled(true);
+            ui->light_power_doubleSpinBox->setEnabled(true);
+
+            ui->spot_light_angle_doubleSpinBox->setValue(
+                        opengl_view->objs[opengl_view->selected_obj]->light.spot_angle);
+            ui->light_power_doubleSpinBox->setValue(
+                        opengl_view->objs[opengl_view->selected_obj]->light.power);
+
+            for (int i=0; i < Model::lights.size(); ++i)
+                if (Model::lights[i]->index == opengl_view->selected_obj)
+                    return;
+            Model::lights.push(&opengl_view->objs[opengl_view->selected_obj]->light);
+        }
+    }
+}
+
+void MainWindow::on_spot_light_angle_doubleSpinBox_valueChanged(double arg1)
+{
+    if (opengl_view->selected_obj >= 0)
+        opengl_view->objs[opengl_view->selected_obj]->light.spot_angle = arg1;
+}
+
+void MainWindow::on_light_power_doubleSpinBox_valueChanged(double arg1)
+{
+    if (opengl_view->selected_obj >= 0)
+        opengl_view->objs[opengl_view->selected_obj]->light.power = arg1;
+}
+
+void MainWindow::on_light_color_radioButton_toggled(bool checked)
+{
+    if (opengl_view->selected_obj >= 0 && checked) {
+        Model *obj = opengl_view->objs[opengl_view->selected_obj];
+        ui->x_doubleSpinBox->setValue(obj->light.color.x());
+        ui->y_doubleSpinBox->setValue(obj->light.color.y());
+        ui->z_doubleSpinBox->setValue(obj->light.color.z());
+    }
+}
+
+void MainWindow::on_light_orientation_radioButton_toggled(bool checked)
+{
+    if (opengl_view->selected_obj >= 0 && checked) {
+        Model *obj = opengl_view->objs[opengl_view->selected_obj];
+        ui->x_doubleSpinBox->setValue(obj->light.orientation.x());
+        ui->y_doubleSpinBox->setValue(obj->light.orientation.y());
+        ui->z_doubleSpinBox->setValue(obj->light.orientation.z());
+    }
+}
+
+void MainWindow::on_action_use_fbo_triggered(bool checked)
+{
+    opengl_view->useFBO = checked;
 }

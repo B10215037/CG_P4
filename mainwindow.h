@@ -62,8 +62,8 @@ private slots:
     void ChangeTrackToLine();
     void ChangeTrackToTrack();
     void ChangeTrackToRoad();
-    void on_actionHide_all_triggered();
-    void on_actionHide_control_points_triggered();
+    void on_action_hide_whole_track_triggered();
+    void on_action_hide_control_points_triggered();
 
     void SwitchPlayAndPause();
 
@@ -78,14 +78,14 @@ private slots:
     /*************************************************************************
      * new function add
      *************************************************************************/
-    void on_actionLoad_Obj_triggered();
+    void on_action_load_obj_triggered();
 
     void on_x_doubleSpinBox_valueChanged(double arg1);
     void on_y_doubleSpinBox_valueChanged(double arg1);
     void on_z_doubleSpinBox_valueChanged(double arg1);
 
-    void on_move_radioButton_toggled(bool checked);
-    void on_scale_radioButton_toggled(bool checked);
+    void on_translate_radioButton_toggled(bool checked);
+    void on_extend_radioButton_toggled(bool checked);
     void on_rotate_radioButton_toggled(bool checked);
 
     void on_do_x_checkBox_toggled(bool checked);
@@ -94,35 +94,36 @@ private slots:
 
     void on_delete_obj_pushButton_clicked();
 
-    void on_put_on_track_pushButton_clicked();
     void on_take_away_pushButton_clicked();
+    void on_put_on_track_pushButton_clicked();
 
-    void on_sSpeed_valueChanged(int value);
+    void on_train_speed_slider_valueChanged(int value);
 
-    void on_actionSave_Scene_triggered();
+    void on_action_save_scene_triggered();
+    void on_action_load_scence_triggered();
 
-    void on_actionLoad_Scence_triggered();
+    void on_action_add_support_structure_triggered();
 
-    void on_light_comboBox_currentIndexChanged(int index);
-    void on_light_attribute_comboBox_currentIndexChanged(int index);
+    void on_action_add_new_track_triggered();
+    void on_action_remove_last_track_triggered();
 
-    void on_light_x_doubleSpinBox_valueChanged(double arg1);
-    void on_light_y_doubleSpinBox_valueChanged(double arg1);
-    void on_light_z_doubleSpinBox_valueChanged(double arg1);
+    void on_obj_listWidget_itemPressed(QListWidgetItem *item);
 
-    void on_actionAdd_support_structure_triggered();
+    void on_action_shader_default_triggered();
+    void on_action_shader_negative_triggered();
+    void on_action_shader_blur_triggered();
+    void on_action_shader_hallucination_triggered();
+    void on_action_load_fragment_shader_triggered();
 
-    void on_actionAdd_new_track_triggered();
-    void on_actionRemove_last_track_triggered();
+    void on_light_type_comboBox_currentIndexChanged(int index);
 
-    void on_listWidget_itemPressed(QListWidgetItem *item);
+    void on_spot_light_angle_doubleSpinBox_valueChanged(double arg1);
+    void on_light_power_doubleSpinBox_valueChanged(double arg1);
 
-    void on_actionShader_default_triggered();
-    void on_actionShader_negative_triggered();
-    void on_actionShader_blur_triggered();
-    void on_actionShader_hallucination_triggered();
+    void on_light_color_radioButton_toggled(bool checked);
+    void on_light_orientation_radioButton_toggled(bool checked);
 
-    void on_actionLoad_fragment_shader_triggered();
+    void on_action_use_fbo_triggered(bool checked);
 
 private:
     void UpdateCameraState( int index );

@@ -1,0 +1,25 @@
+#version 400 core
+
+in vec2 uv;
+
+uniform sampler2D texture;
+
+void main()
+{
+    vec4 color = texture2D(texture, uv);
+
+    for (int i=0; i < 3; ++i) {
+        if (color[i] > 0.8)
+            color[i] = 0.8;
+        else if (color[i] > 0.6)
+            color[i] = 0.6;
+        else if (color[i] > 0.4)
+            color[i] = 0.4;
+        else if (color[i] > 0.2)
+            color[i] = 0.2;
+        else
+            color[i] = 0;
+    }
+
+    gl_FragColor = color;
+}
